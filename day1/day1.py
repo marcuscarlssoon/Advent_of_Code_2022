@@ -1,7 +1,7 @@
 test = ['1000', '2000', '3000', '', '4000', '', '5000', '6000', '', '7000', '8000', '9000', '', '10000']
 
 with open('input.txt') as input_text:
-    lines = [x for x in list(input_text.read().splitlines())]
+    lines = list(input_text.read().splitlines())
 
     calories_per_elve = []
     sum_individual = 0
