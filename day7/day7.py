@@ -7,16 +7,16 @@ base = '/'
 directories = {}
 sub_directories = {}
 
+# Assume only 1 ls per directory
 for line in lines:
-    if line[0] != '$':
-        ls_content = line.split()
-        if ls_content[0] == 'dir':
-            sub_directories[base].append(os.path.normpath(os.path.join(base, ls_content[1])))
+    first, command, *args = line.split()  # first can be either '$', 'dir' or the size of a file
+    if first != '$':
+        if first == 'dir':
+            sub_directories[base].append(os.path.normpath(os.path.join(base, command)))
         else:
-            directories[base] += int(ls_content[0])
+            directories[base] += int(first)
         continue
 
-    dollar, command, *args = line.split()
     if command == 'cd':
         path, = args
         base = os.path.normpath(os.path.join(base, path))
